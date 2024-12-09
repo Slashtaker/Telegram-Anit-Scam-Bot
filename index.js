@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const AntiScamBot = require('./bot');  // Correct import of AntiScamBot
+const keep_alive = require(`./keep_alive`)
 require(`dotenv`).config()
 
 const bot = new AntiScamBot(process.env.BOT_TOKEN, true);  // Instantiate AntiScamBot
