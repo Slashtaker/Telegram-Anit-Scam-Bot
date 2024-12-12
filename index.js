@@ -10,7 +10,7 @@ const PORT = process.env.PORT;
 
 
 setInterval(() => {
-    fetch("http://127.0.0.1:${PORT}/keep-session-alive")
+    fetch(`/http://127.0.0.1:${PORT}/keep-session-alive`)
         .then(response => console.log("Session refreshed"))
         .catch(error => console.error("Error refreshing session", error));
 }, 60000); // Every 60 seconds
