@@ -8,15 +8,9 @@ const bot = new AntiScamBot(process.env.BOT_TOKEN, true);  // Instantiate AntiSc
 const app = express();
 const PORT = process.env.PORT;
 
-
-setInterval(() => {
-    fetch(`http://127.0.0.1:${PORT}/keep-session-alive`)
-        .then(response => console.log("Session refreshed"))
-        .catch(error => console.error("Error refreshing session", error));
-}, 60000); // Every 60 seconds
-
 app.get('/keep-session-alive', (req, res) => {
     res.status(200).send('Session is alive');
+    console.log(`Session refreshed`)
 });
 
 
