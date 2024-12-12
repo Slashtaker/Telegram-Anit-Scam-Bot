@@ -1,13 +1,24 @@
 const express = require('express');
 const path = require('path');
 const AntiScamBot = require('./bot');  // Correct import of AntiScamBot
-const keep_alive = require(`./keep_alive`)
 require(`dotenv`).config()
 
 const bot = new AntiScamBot(process.env.BOT_TOKEN, true);  // Instantiate AntiScamBot
 
 const app = express();
 const PORT = process.env.PORT;
+
+
+setInterval(() => {
+    fetch("/keep-session-alive")
+        .then(response => console.log("Session refreshed"))
+        .catch(error => console.error("Error refreshing session", error));
+}, 60000); // Every 60 seconds
+
+app.get('/keep-session-alive', (req, res) => {
+    res.status(200).send('Session is alive');
+});
+
 
 // Serve static files from the 'web' folder
 app.use(express.static(path.join(__dirname, 'web')));
