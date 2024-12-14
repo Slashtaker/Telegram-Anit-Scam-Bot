@@ -66,7 +66,7 @@ class AntiScamBot extends DBController {
                         }
 
                         if (search_by_name.length === 0 && search_by_username.length === 0 && search_by_personal_info.length === 0 && search_by_reason.length === 0 && search_by_phone.length === 0) {
-                            await this.bot.sendMessage(chatId, no_result);
+                            await this.bot.sendMessage(chatId, no_result, {reply_markup: upload});
                             return;
                         } else {
                             let result = search_by_name.concat(search_by_username, search_by_personal_info, search_by_reason, search_by_phone);
@@ -171,4 +171,3 @@ class AntiScamBot extends DBController {
 }
 
 module.exports = AntiScamBot;
-
