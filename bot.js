@@ -45,7 +45,7 @@ class AntiScamBot extends DBController {
                     if (text === `查询`) {
                         await this.bot.sendMessage(chatId, search_function)
                     }
-                    else if (text === undefined || typeof text !== "string") {
+                    else if (text === undefined) {
                         console.log("")
                     }
                     else if (text.startsWith(`查询`) || text.startsWith(`查詢`)) {
@@ -132,7 +132,7 @@ class AntiScamBot extends DBController {
                             break;
                     }
 
-                    if (text.startsWith('/upload')) {
+                    if (text !== undefined && text.startsWith('/upload')) {
                         let extractedText = util.extractKeyValuePairs(text.replace('/upload', '').trim());
                         if (extractedText.名字 !== "" && extractedText.原因 !== "") {
                             if (extractedText.手机号 !== "" && !Number.isInteger(Number(extractedText.手机号))) {
