@@ -3,104 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 Page</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <title>404 - Page Not Found</title>
     <style>
-        html, body {
-            font-family: 'Roboto Mono', monospace;
-            font-size: 16px;
+        body {
             margin: 0;
             padding: 0;
-            height: 100%;
-            background-color: #000;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #1a1a1a;
             color: #fff;
-        }
-
-        .container {
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100%;
+            min-height: 100vh;
+            overflow: hidden;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.2) 1px, transparent 1px),
+                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.2) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: backgroundMove 30s linear infinite;
         }
 
-        .copy-container {
+        @keyframes backgroundMove {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: 50px 50px;
+            }
+        }
+
+        .glitch-container {
             text-align: center;
             position: relative;
         }
 
-        p {
+        .glitch {
+            font-size: 120px;
+            font-weight: bold;
+            position: relative;
+            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                         0.025em 0.04em 0 #fffc00;
+            animation: glitch 725ms infinite;
+        }
+
+        .subtitle {
             font-size: 24px;
-            margin: 0;
+            margin-top: 20px;
+            color: #888;
         }
 
-        .handle {
-            background: #ffe500;
-            width: 14px;
-            height: 30px;
-            position: absolute;
-            top: 0;
-            left: 0;
+        .home-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid #fff;
+            border-radius: 5px;
+            transition: all 0.3s ease;
         }
 
-        #cb-replay {
-            fill: #666;
-            width: 20px;
-            margin: 15px;
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            cursor: pointer;
+        .home-link:hover {
+            background: #fff;
+            color: #1a1a1a;
         }
 
-        #cb-replay:hover {
-            fill: #888;
+        @keyframes glitch {
+            0% {
+                text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                            0.025em 0.04em 0 #fffc00;
+            }
+            15% {
+                text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                            0.025em 0.04em 0 #fffc00;
+            }
+            16% {
+                text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
+                            -0.05em -0.05em 0 #fffc00;
+            }
+            49% {
+                text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
+                            -0.05em -0.05em 0 #fffc00;
+            }
+            50% {
+                text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
+                            0 -0.04em 0 #fffc00;
+            }
+            99% {
+                text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
+                            0 -0.04em 0 #fffc00;
+            }
+            100% {
+                text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff,
+                            -0.04em -0.025em 0 #fffc00;
+            }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="copy-container">
-        <p>404, page not found.</p>
-        <span class="handle"></span>
+    <div class="glitch-container">
+        <div class="glitch">404</div>
+        <div class="subtitle">Oops! Page not found</div>
+        <a href="/" class="home-link">Return Home</a>
     </div>
-</div>
-<script>
-    $(document).ready(function () {
-        var $copyContainer = $(".copy-container"),
-            $handle = $(".handle"),
-            $replayIcon = $('#cb-replay'),
-            copyWidth = $copyContainer.find('p').width();
-
-        var tl = gsap.timeline({ repeat: -1 });
-
-        function animateCopy() {
-            gsap.fromTo($copyContainer.find('p'),
-                { opacity: 0 },
-                { opacity: 1, duration: 2, ease: "power1.inOut" }
-            );
-        }
-
-        function blinkHandle() {
-            gsap.fromTo($handle,
-                { autoAlpha: 0 },
-                { autoAlpha: 1, duration: 0.5, yoyo: true, repeat: -1 }
-            );
-        }
-
-        function animateHandle() {
-            gsap.to($handle, { x: copyWidth, duration: 2, ease: "steps(12)" });
-        }
-
-        animateCopy();
-        blinkHandle();
-        animateHandle();
-
-        $replayIcon.on('click', function () {
-            tl.restart();
-        });
-    });
-</script>
 </body>
 </html>
